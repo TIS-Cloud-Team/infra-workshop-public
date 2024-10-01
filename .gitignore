@@ -35,3 +35,81 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# for ansible projects
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.env/
+.env.*
+
+# Ansible-specific files
+# Vault password files
+*.vault
+*.vault.yml
+*.vault.yaml
+
+# Inventory files with sensitive information
+inventory/*secret*
+inventory/*_secret*
+inventory/secrets/
+
+# Role dependencies and caches
+.roles/
+.ansible/
+
+# Temporary files
+*.retry
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE and editor directories
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Backup and temporary files
+*~
+*.bak
+*.tmp
+*.swp
+
+# Docker-related files
+docker-compose.override.yml
+Dockerfile.local
+
+# Jenkins or CI/CD related files
+ci/
+jenkins/
+
+# Sensitive configuration files
+config/secrets.yml
+config/credentials.yml
+
+
+## don't checkin any credentials or environment specific files
+.env
+**/.env
+.ssh
+**/.ssh
+password.txt
+**/password.txt
+*.tmp
+*.temp
+.bash_history
+**/.bash_history
+tmp/
+temp/
+**/tmp/
+**/temp/
+
+
+
