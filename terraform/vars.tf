@@ -43,6 +43,8 @@ locals {
   db_user = "sqladmin" ## replace with your own sql server admin/sa account
   db_password = random_password.password.result
 
+  entra_id_admin = "fname.lname_domain.com#EXT#@tenant_name.onmicrosoft.com" ##"EXT fname.lname@domain.com" ## replace with your own entra id admin user - please note this is user_principal_name
+
   ## sql database name
   db_name = "db-${local.app_name}"
 
@@ -51,7 +53,7 @@ locals {
     department_code = "abc" ## 3 digit department code
     environment     = "dev" ## dev, test, prod, development, production
     project_name    = "my-cloud-project" ## my-cloud-project limit 63 characters
-    business_owner  = "cloud.ops@email.com" ## email address limit 63 characters
+    business_owner  = "cloud.ops@domain.com" ## email address limit 63 characters
 
     billing_code    = "111-abc" ## billing code
     cloud_type      = "commercial" ## cloud: commercial, government

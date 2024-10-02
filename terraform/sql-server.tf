@@ -9,7 +9,15 @@ resource "azurerm_mssql_server" "example" {
   version                      = "12.0"
   administrator_login          = local.db_user
   administrator_login_password = local.db_password
-  ##public_network_access_enabled = true
+  minimum_tls_version          = "1.2"
+  ##public_network_access_enabled = true ## by default it is true
+
+  ## https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_server#azuread_administrator
+  azuread_administrator {
+    login_username = data.azuread_user.current.user_principal_name ##data.azurerm_client_config.current.client_id ##local.entra_id_admin
+    object_id      = data.azurerm_client_config.current.object_id ##data.azuread_user.entra_id_admin.object_id
+  }
+
   tags = local.global_tags
 }
 
@@ -29,3 +37,26 @@ resource "azurerm_mssql_firewall_rule" "allow_azure_services" {
   end_ip_address      = "0.0.0.0"
 }
 
+## Data source to get the Azure AD user object ID
+## https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/ad_user
+#data "azuread_user" "entra_id_admin" {
+#  user_principal_name = local.entra_id_admin
+#}
+
+## Data source to get the current Azure client configuration
+data "azurerm_client_config" "current" {}
+
+## Data source to get the Azure AD user object ID and user principal name
+## https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/user
+data "azuread_user" "current" {
+  object_id = data.azurerm_client_config.current.object_id
+}
+
+## Output the user principal name and object ID
+output "user_principal_name" {
+  value = data.azuread_user.current.user_principal_name
+}
+
+output "object_id" {
+  value = data.azuread_user.current.object_id
+}

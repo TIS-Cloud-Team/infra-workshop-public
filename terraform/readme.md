@@ -6,7 +6,7 @@
 
 ### azure sql database
 
-![1727891971657](image/readme/1727891971657.png)
+![1727904955050](image/readme/1727904955050.png)
 
 - terraform [azurerm_mssql_database | Resources | hashicorp/azurerm | Terraform | Terraform Registry](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_database)
 - azure sql database [Azure SQL Database documentation - Azure SQL | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-sql/database/?view=azuresql)
@@ -16,32 +16,9 @@
 - plan and manage cost [Plan and manage costs - Azure SQL Database | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-sql/database/cost-management?view=azuresql)
 - monitor [Monitor Azure SQL Database - Azure SQL Database | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-sql/database/monitoring-sql-database-azure-monitor?view=azuresql)
 - server-level firewall [Create a server-level firewall rule in the Azure portal - Azure SQL Database | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-sql/database/firewall-create-server-level-portal-quickstart?view=azuresql)
-
-### azure app service
-
-![1727893894100](image/readme/1727893894100.png)
-
-- terraform [azurerm_app_service | Resources | hashicorp/azurerm | Terraform | Terraform Registry](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/app_service)
-- terraform windows web app [azurerm_windows_web_app | Resources | hashicorp/azurerm | Terraform | Terraform Registry](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_web_app)
-- app service [Overview of Azure App Service - Azure App Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/app-service/overview)
-- app service plan [App Service plans - Azure App Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/app-service/overview-hosting-plans)
-- app service asp.net web app [Quickstart: Deploy an ASP.NET web app - Azure App Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/app-service/quickstart-dotnetcore?tabs=net80&pivots=development-environment-vs)
-- monitor [Monitor Azure App Service - Azure App Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/app-service/monitor-app-service)
-- domain and certificate [Tutorial: Secure app with a custom domain and certificate - Azure App Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/app-service/tutorial-secure-domain-certificate)
-- scale-up [Scale up features and capacities - Azure App Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/app-service/manage-scale-up)
-- security [Security - Azure App Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/app-service/overview-security)
-- webjobs [Run background tasks with WebJobs - Azure App Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/app-service/webjobs-create?tabs=windowscode)
-- deployment and configuration [Deployment best practices - Azure App Service | Microsoft Learn](https://learn.microsoft.com/en-us/azure/app-service/deploy-best-practices)
-- asp.net framework 4.7 sample code on ""wwwroot\asp-net-examples"" folder
-
-### azure app insights
-
-![1727895459704](image/readme/1727895459704.png)
-
-- terraform [azurerm_application_insights | Resources | hashicorp/azurerm | Terraform | Terraform Registry](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights)
-- app insights [Application Insights overview - Azure Monitor | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview)
-- azure monitor [Azure Monitor documentation - Azure Monitor | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-monitor/)
-- action group [Azure Monitor action groups - Azure Monitor | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/action-groups)
+- microsoft entra authentication [Connect with Microsoft Entra authentication - Azure SQL Database &amp; SQL Managed Instance &amp; Azure Synapse Analytics | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-sql/database/authentication-microsoft-entra-connect-to-azure-sql?view=azuresql)
+- service principal [Microsoft Entra server principals - Azure SQL Database &amp; Azure SQL Managed Instance &amp; Azure Synapse Analytics | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-sql/database/authentication-azure-ad-logins?view=azuresql)
+- managed identity [Managed identity in Microsoft Entra for Azure SQL - Azure SQL Database &amp; Azure SQL Managed Instance | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-sql/database/authentication-azure-ad-user-assigned-managed-identity?view=azuresql)
 
 ### IaC terraform script
 
@@ -63,6 +40,7 @@ cd terraform
 #rm -f .terraform.lock.hcl
 
 terraform init
+## terraform init -upgrade
 #terraform console
 terraform plan
 terraform apply --auto-approve
