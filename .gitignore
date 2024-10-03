@@ -82,6 +82,9 @@ Thumbs.db
 *.tmp
 *.swp
 
+# Exclude specific .bak file
+!AdventureWorksLT2022.bak
+
 # Docker-related files
 docker-compose.override.yml
 Dockerfile.local

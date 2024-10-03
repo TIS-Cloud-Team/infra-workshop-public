@@ -1,0 +1,100 @@
+## use az sql mi start-stop-schedule create - https://learn.microsoft.com/en-us/azure/azure-sql/managed-instance/instance-stop-start-how-to?view=azuresql&tabs=azure-cli-prep%2Cazure-cli
+## Create an Azure Automation Account and Runbooks to start and stop an Azure SQL Managed Instance
+## https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_account
+resource "azurerm_automation_account" "example" {
+  name                = "example-automation"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+  sku_name            = "Basic"
+}
+
+## Create a PowerShell Runbook to start and stop an Azure SQL Managed Instance
+## https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_runbook
+resource "azurerm_automation_runbook" "start" {
+  name                    = "StartSQLManagedInstance"
+  location                = azurerm_resource_group.example.location
+  resource_group_name     = azurerm_resource_group.example.name
+  automation_account_name = azurerm_automation_account.example.name
+  log_verbose             = true
+  log_progress            = true
+  runbook_type            = "PowerShell"
+  content                 = <<-EOT
+    param(
+        [string]$ResourceGroupName,
+        [string]$ManagedInstanceName
+    )
+
+    # Login to Azure
+    Connect-AzAccount
+
+    # Start the SQL Managed Instance
+    Start-AzSqlInstance -ResourceGroupName $ResourceGroupName -Name $ManagedInstanceName
+  EOT
+}
+
+## Create a PowerShell Runbook to stop an Azure SQL Managed Instance
+## https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_runbook
+resource "azurerm_automation_runbook" "stop" {
+  name                    = "StopSQLManagedInstance"
+  location                = azurerm_resource_group.example.location
+  resource_group_name     = azurerm_resource_group.example.name
+  automation_account_name = azurerm_automation_account.example.name
+  log_verbose             = true
+  log_progress            = true
+  runbook_type            = "PowerShell"
+  content                 = <<-EOT
+    param(
+        [string]$ResourceGroupName,
+        [string]$ManagedInstanceName
+    )
+
+    # Login to Azure
+    Connect-AzAccount
+
+    # Stop the SQL Managed Instance
+    Stop-AzSqlInstance -ResourceGroupName $ResourceGroupName -Name $ManagedInstanceName
+  EOT
+}
+
+## Create a schedule to start and stop the Azure SQL Managed Instance
+## https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_schedule
+resource "azurerm_automation_schedule" "start_schedule" {
+  name                    = "StartSchedule"
+  resource_group_name     = azurerm_resource_group.example.name
+  automation_account_name = azurerm_automation_account.example.name
+  frequency               = "Day"
+  interval                = 1
+  timezone                = "Pacific Standard Time"
+  start_time              = "2023-01-01T07:30:00Z"
+}
+
+
+## Create a schedule to stop the Azure SQL Managed Instance
+## https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_schedule
+resource "azurerm_automation_schedule" "stop_schedule" {
+  name                    = "StopSchedule"
+  resource_group_name     = azurerm_resource_group.example.name
+  automation_account_name = azurerm_automation_account.example.name
+  frequency               = "Day"
+  interval                = 1
+  timezone                = "Pacific Standard Time"
+  start_time              = "2023-01-01T17:30:00Z"
+}
+
+## Create a job schedule to start and stop the Azure SQL Managed Instance
+## https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_job_schedule
+resource "azurerm_automation_job_schedule" "start_job" {
+  automation_account_name = azurerm_automation_account.example.name
+  runbook_name            = azurerm_automation_runbook.start.name
+  schedule_name           = azurerm_automation_schedule.start_schedule.name
+  resource_group_name     = azurerm_resource_group.example.name
+}
+
+## Create a job schedule to stop the Azure SQL Managed Instance
+## https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_job_schedule
+resource "azurerm_automation_job_schedule" "stop_job" {
+  automation_account_name = azurerm_automation_account.example.name
+  runbook_name            = azurerm_automation_runbook.stop.name
+  schedule_name           = azurerm_automation_schedule.stop_schedule.name
+  resource_group_name     = azurerm_resource_group.example.name
+}

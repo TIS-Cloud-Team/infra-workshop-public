@@ -19,6 +19,7 @@ variable "myAppName" {
 }
 
 locals {
+  ## app name, common prefix for all resources , please comment this line if you want to use default value  
   app_name = random_pet.prefix.id
 
   ## resource group 
@@ -38,6 +39,10 @@ locals {
 
   ## azure sql managed instance  
   db_azure_sql_mi_name = "sql-mi-${local.app_name}"
+  db_license_type                 = "BasePrice"    ## LicenseIncluded, BasePrice
+  db_sku_name                     = "GP_Gen5" ## GP_Gen5, BC_Gen5, MO_Gen5, MO_Gen4, HS_Gen4, DS_Gen4, DS_Gen5, BC_Gen4, GP_Gen4, HS_Gen5
+  db_vcores                       = 4 ## 4, 8, 16, 24, 32, 40, 64
+  db_storage_size_in_gb           = 32 ## 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536
 
   ## azure sql admin user name and password 
   db_user = "sqladmin" ## replace with your own sql server admin/sa account
@@ -47,6 +52,12 @@ locals {
 
   ## sql database name
   db_name = "db-${local.app_name}"
+
+  ## azure storage account
+  ## storacctfor... azure storage account name contains only lowercase letters and numbers - must startwith character, storageaacct 24 character limits
+  app_name_cleaned = replace(replace(replace(local.app_name, "_", ""), "-", ""), "'", "")
+  storage_account_name = lower("storacct4${local.app_name_cleaned}") 
+  storage_container_name = "sqlbackup"
 
   ## todo add tags - please note azure did not support default_tags or global tage
   global_tags = {
