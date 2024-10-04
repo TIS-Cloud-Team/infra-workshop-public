@@ -111,5 +111,8 @@ temp/
 **/tmp/
 **/temp/
 
-
+test.sh
+do-not-checkin.sh
+test.ps1
+do-not-checkin.ps1
 
