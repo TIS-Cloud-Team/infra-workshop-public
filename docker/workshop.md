@@ -1,5 +1,9 @@
 ## https://docs.docker.com/samples/
 
+- azure virtual machine (linux & windows) https://learn.microsoft.com/en-us/azure/virtual-machines/
+- terraform (linux) https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-terraform?tabs=azure-cli
+- terraform (windows) https://learn.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-terraform
+
 ## Supported Linux distros
 
 [](https://github.com/dotnet/dotnet-docker/blob/main/samples/aspnetapp/README.md#supported-linux-distros)
