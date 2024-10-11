@@ -1,4 +1,4 @@
-# Infra Workshop Repository
+# AWS Workshop Repository -  https://workshops.aws/
 
 Welcome to the Infra Workshop repository! This repository is intended for general learning purposes, focusing on infrastructure-related topics and workshops.
 
