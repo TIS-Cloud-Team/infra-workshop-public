@@ -1,0 +1,39 @@
+{
+  "properties": {
+    "displayName": "Enforce owner tag on resources",
+    "policyType": "Custom",
+    "mode": "Indexed",
+    "description": "Ensure that an owner tag is present on all resources.",
+    "parameters": {
+      "tagName": {
+        "type": "String",
+        "metadata": {
+          "description": "Name of the tag to enforce",
+          "displayName": "Tag Name",
+          "defaultValue": "owner"
+        }
+      }
+    },
+    "policyRule": {
+      "if": {
+        "field": "[concat('tags[', parameters('tagName'), ']')]",
+        "exists": "false"
+      },
+      "then": {
+        "effect": "modify",
+        "details": {
+          "roleDefinitionIds": [
+            "/providers/microsoft.authorization/roleDefinitions/1234567890"
+          ],
+          "operations": [
+            {
+              "operation": "add",
+              "field": "[concat('tags[', parameters('tagName'), ']')]",
+              "value": "[concat('user:', requestContext().user.name)]"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
