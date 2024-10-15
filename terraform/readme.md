@@ -4,7 +4,7 @@
 - overview [Azure Resource Manager overview - Azure Resource Manager | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/overview)
 - manage resource group [Manage resource groups - Azure portal - Azure Resource Manager | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal)
 
-### azure sql managed instance
+### dazure sql managed instance
 
 - terraform [azurerm_mssql_managed_instance | Resources | hashicorp/azurerm | Terraform | Terraform Registry](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_managed_instance)
 - terraform ad & entra id admin https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_managed_instance
@@ -69,8 +69,8 @@ terraform destroy --auto-approve
 - managed instance start/stop scedule - [Stop and start an instance - Azure SQL Managed Instance | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-sql/managed-instance/instance-stop-start-how-to?view=azuresql&tabs=azure-cli-prep%2Cazure-cli)
 
 ```bash
-instanceName=""
-resourceGroupName=""
+instanceName="sql-mi-tiger"
+resourceGroupName="rg-tiger"
 
 ## create schedule M-F
 scheduleItems="[{'startDay':'Monday','startTime':'8:00','stopDay':'Monday','stopTime':'17:00'},{'startDay':'Tuesday','startTime':'8:00','stopDay':'Tuesday','stopTime':'17:00'},{'startDay':'Wednesday','startTime':'8:00','stopDay':'Wednesday','stopTime':'17:00'},{'startDay':'Thursday','startTime':'8:00','stopDay':'Thursday','stopTime':'17:00'},{'startDay':'Friday','startTime':'8:00','stopDay':'Friday','stopTime':'17:00'}]"

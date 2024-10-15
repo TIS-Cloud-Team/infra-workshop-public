@@ -96,7 +96,7 @@ resource "azurerm_mssql_managed_instance" "main" {
   storage_account_type         = "LRS"  # Locally-redundant storage (LRS), Geo-redundant storage (GRS), Read-access geo-redundant storage (RA-GRS), Zone-redundant storage (ZRS), or Premium_LRS
   public_data_endpoint_enabled = true
 
-  depends_on = [azurerm_subnet_route_table_association.example]
+  depends_on = [azurerm_resource_group.myresourcegroup, azurerm_subnet_route_table_association.example]
 
   tags = local.global_tags
 }
