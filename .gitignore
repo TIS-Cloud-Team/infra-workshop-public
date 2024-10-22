@@ -111,5 +111,7 @@ temp/
 **/tmp/
 **/temp/
 
+**/key.txt
+**/credentials.txt
 
 

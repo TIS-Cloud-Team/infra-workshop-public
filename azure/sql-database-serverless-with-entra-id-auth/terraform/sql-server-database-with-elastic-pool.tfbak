@@ -1,0 +1,45 @@
+# This file creates a SQL Server database with an elastic pool.
+## The elastic pool is a collection of databases with a shared set of resources.
+resource "azurerm_mssql_elasticpool" "example" {
+  name                = local.db_azure_sql_elastic_pool_name
+  resource_group_name = azurerm_resource_group.myresourcegroup.name
+  location            = azurerm_resource_group.myresourcegroup.location
+  server_name         = azurerm_mssql_server.example.name
+
+  sku {
+    name     = "BasicPool"
+    tier     = "Basic"
+    capacity = 50
+  }
+
+  per_database_settings {
+    min_capacity = 0
+    max_capacity = 5
+  }
+
+  max_size_gb = 4.8828125
+
+  tags = local.global_tags
+}
+
+## https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_database
+resource "azurerm_mssql_database" "db-dev" {
+  name                = local.db_name
+  server_id           = azurerm_mssql_server.example.id
+  elastic_pool_id     = azurerm_mssql_elasticpool.example.id
+  collation           = "SQL_Latin1_General_CP1_CI_AS"
+  license_type        = "LicenseIncluded"
+  read_scale          = false
+  sku_name            = "ElasticPool"
+  zone_redundant      = false
+  auto_pause_delay_in_minutes = 0
+}
+
+output "sql_database_server_name" {
+  value = azurerm_mssql_server.example.name
+}
+
+output "sql_database_connection_string" {
+  sensitive = true
+  value = "Server=${azurerm_mssql_server.example.fully_qualified_domain_name};Database=${azurerm_mssql_database.db-dev.name};User Id=${azurerm_mssql_server.example.administrator_login};Password=${azurerm_mssql_server.example.administrator_login_password};"
+}

@@ -1,0 +1,35 @@
+resource "null_resource" "install_docker_minikube" {
+  provisioner "remote-exec" {
+    inline = [
+      "sudo apt-get update",
+      "sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common",
+      "sudo apt-get update",
+      "echo start-install-docker",
+      "sudo apt install -y docker.io",
+      "sudo usermod -aG docker ${local.vm_admin_username} && newgrp docker",
+      "docker info",
+      "echo 'Docker installation complete.'",
+      "echo 'Starting Minikube download...'",
+      "pwd && ls -l",
+      "curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64",
+      "echo 'Minikube download complete.'",
+      "pwd && ls -l",
+      "sudo install minikube-linux-amd64 /usr/local/bin/minikube",
+      "echo 'Starting Minikube...'",
+      "minikube start --driver=docker",
+      "echo 'Minikube started.'",
+      "minikube status",
+      "minikube kubectl -- get pods -A",
+      "sudo snap install kubectl --classic"
+    ]
+
+    connection {
+      type        = "ssh"
+      user        = local.vm_admin_username
+      private_key = file("${path.module}/id_rsa_${local.app_name}")
+      host        = azurerm_linux_virtual_machine.vm.public_ip_address
+    }
+  }
+
+  depends_on = [azurerm_linux_virtual_machine.vm]
+}

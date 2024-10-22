@@ -1,0 +1,93 @@
+{
+    "info": {
+      "name": "GitHub API Collection",
+      "description": "Collection to fetch issues and projects from GitHub",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Get Issues",
+        "request": {
+          "method": "GET",
+          "header": [
+            {
+              "key": "Authorization",
+              "value": "token {{PAT}}",
+              "type": "text"
+            },
+            {
+              "key": "Accept",
+              "value": "application/vnd.github.v3+json",
+              "type": "text"
+            }
+          ],
+          "url": {
+            "raw": "https://{{GITHUB_HOST}}/api/v3/repos/{{REPO_OWNER}}/{{REPO_NAME}}/issues",
+            "protocol": "https",
+            "host": [
+              "{{GITHUB_HOST}}"
+            ],
+            "path": [
+              "api",
+              "v3",
+              "repos",
+              "{{REPO_OWNER}}",
+              "{{REPO_NAME}}",
+              "issues"
+            ]
+          }
+        }
+      },
+      {
+        "name": "Get Projects",
+        "request": {
+          "method": "GET",
+          "header": [
+            {
+              "key": "Authorization",
+              "value": "token {{PAT}}",
+              "type": "text"
+            },
+            {
+              "key": "Accept",
+              "value": "application/vnd.github.inertia-preview+json",
+              "type": "text"
+            }
+          ],
+          "url": {
+            "raw": "https://{{GITHUB_HOST}}/api/v3/repos/{{REPO_OWNER}}/{{REPO_NAME}}/projects",
+            "protocol": "https",
+            "host": [
+              "{{GITHUB_HOST}}"
+            ],
+            "path": [
+              "api",
+              "v3",
+              "repos",
+              "{{REPO_OWNER}}",
+              "{{REPO_NAME}}",
+              "projects"
+            ]
+          }
+        }
+      }
+    ],
+    "variable": [
+      {
+        "key": "PAT",
+        "value": "ghp_1234567890",
+      },
+      {
+        "key": "GITHUB_HOST",
+        "value": "github.domain.com"
+      },
+      {
+        "key": "REPO_OWNER",
+        "value": "organization-owner-name"
+      },
+      {
+        "key": "REPO_NAME",
+        "value": "reporitory-name"
+      }
+    ]
+  }

@@ -1,0 +1,87 @@
+openapi: 3.0.1
+info:
+  title: GitHub Issues and Projects API
+  description: API to fetch issues and projects from a GitHub repository using a Personal Access Token.
+  version: 1.0.0
+servers:
+  - url: https://{github_host}/api/v3
+    variables:
+      github_host:
+        default: your_github_enterprise_host
+        description: The GitHub Enterprise host.
+security:
+  - patAuth: []
+components:
+  securitySchemes:
+    patAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token
+  schemas:
+    Issue:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        body:
+          type: string
+    Project:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        body:
+          type: string
+paths:
+  /repos/{owner}/{repo}/issues:
+    get:
+      summary: Get Issues
+      description: Fetch issues from the specified repository.
+      parameters:
+        - name: owner
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: repo
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of issues.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Issue'
+  /repos/{owner}/{repo}/projects:
+    get:
+      summary: Get Projects
+      description: Fetch projects from the specified repository.
+      parameters:
+        - name: owner
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: repo
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of projects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
