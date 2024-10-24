@@ -1,0 +1,2 @@
+- https://learn.microsoft.com/en-us/azure/azure-monitor/logs/log-query-overview
+- Kusto Query Language (KQL)

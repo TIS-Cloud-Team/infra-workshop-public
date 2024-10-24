@@ -114,4 +114,9 @@ temp/
 **/key.txt
 **/credentials.txt
 
+**/*do-not-checkin*.*
+**/*do-not-checkin*/*
+**/*donotcheckin*.*
+**/*donotcheckin*/*
 
+**/test.sh
