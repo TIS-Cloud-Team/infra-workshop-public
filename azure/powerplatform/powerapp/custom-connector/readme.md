@@ -1,0 +1,2 @@
+- https://learn.microsoft.com/en-us/connectors/custom-connectors/learn-with-a-tutorial
+- https://www.halfnine.com/blog/post/on-premises-data-gateway

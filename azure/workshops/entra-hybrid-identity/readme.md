@@ -1,0 +1,2 @@
+- https://learn.microsoft.com/en-us/entra/identity/hybrid/whatis-hybrid-identity
+- https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/tutorial-basic-ad-azure
