@@ -19,6 +19,9 @@ Both Azure CLI and Azure PowerShell are command-line tools for managing Azure re
 #### Azure CLI
 
 ```sh
+az cloud set --name AzureUSGovernment
+az cloud set --name AzureCloud
+
 # List all resource groups
 az group list
 
