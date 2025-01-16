@@ -3,8 +3,9 @@
 - terraform [azurerm_resource_group | Resources | hashicorp/azurerm | Terraform | Terraform Registry](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group)
 - overview [Azure Resource Manager overview - Azure Resource Manager | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/overview)
 - manage resource group [Manage resource groups - Azure portal - Azure Resource Manager | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal)
+- ![1737056561060](image/readme/1737056561060.png)
 
-### dazure sql managed instance
+### azure sql managed instance
 
 - terraform [azurerm_mssql_managed_instance | Resources | hashicorp/azurerm | Terraform | Terraform Registry](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_managed_instance)
 - terraform ad & entra id admin https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_managed_instance
@@ -68,7 +69,7 @@ terraform destroy --auto-approve
 
 - managed instance start/stop scedule - [Stop and start an instance - Azure SQL Managed Instance | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-sql/managed-instance/instance-stop-start-how-to?view=azuresql&tabs=azure-cli-prep%2Cazure-cli)
 
-```bash
+- ```bash
 instanceName="sql-mi-tiger"
 resourceGroupName="rg-tiger"
 
@@ -100,6 +101,7 @@ az sql mi start-stop-schedule delete --mi "$instanceName" -g "$resourceGroupName
 
 ```bash
 # Variables
+# TODO 
 managedInstanceFQDN="your-managed-instance-fqdn.public.dnszoneid12345678.database.windows.net,3342"
 adminUser="your-admin-username"
 adminPassword="your-admin-password"
@@ -116,3 +118,7 @@ sqlcmd -S $managedInstanceFQDN -U $adminUser -P $adminPassword -Q "CREATE CREDEN
 sqlcmd -S $managedInstanceFQDN -U $adminUser -P $adminPassword -Q "RESTORE DATABASE [$databaseName] FROM URL = 'https://$storageAccountName.blob.core.windows.net/$containerName/$backupFileName' WITH FILE = 1, NOUNLOAD, STATS = 5"
 
 ```
+
+### restore bak from SQL Management Studio 20 on windows PC
+
+- ![1737056378210](image/readme/1737056378210.png)
