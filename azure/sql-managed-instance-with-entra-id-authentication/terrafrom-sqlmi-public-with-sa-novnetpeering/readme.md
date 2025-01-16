@@ -68,33 +68,35 @@ terraform destroy --auto-approve
 ### manage a stop and start schedule
 
 - managed instance start/stop scedule - [Stop and start an instance - Azure SQL Managed Instance | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-sql/managed-instance/instance-stop-start-how-to?view=azuresql&tabs=azure-cli-prep%2Cazure-cli)
-
-- ```bash
-instanceName="sql-mi-tiger"
-resourceGroupName="rg-tiger"
+- ![1737056219460](image/readme/1737056219460.png)
 
 ## create schedule M-F
+
 scheduleItems="[{'startDay':'Monday','startTime':'8:00','stopDay':'Monday','stopTime':'17:00'},{'startDay':'Tuesday','startTime':'8:00','stopDay':'Tuesday','stopTime':'17:00'},{'startDay':'Wednesday','startTime':'8:00','stopDay':'Wednesday','stopTime':'17:00'},{'startDay':'Thursday','startTime':'8:00','stopDay':'Thursday','stopTime':'17:00'},{'startDay':'Friday','startTime':'8:00','stopDay':'Friday','stopTime':'17:00'}]"
 
 ##timezone="Central Europe Standard Time"
 timezone="Pacific Standard Time"
 
-
 az sql mi start-stop-schedule create --mi "$instanceName" -g "$resourceGroupName" --timezone-id "$timezone" --schedule-list "$scheduleItems"
 
-# check a scedule
+# check a schedule
+
 az sql mi start-stop-schedule show --mi "$instanceName" -g "$resourceGroupName"
 
 # append an item
+
 newScheduleItem="{'startDay':'Friday','startTime':'09:00 PM','stopDay':'Friday','stopTime':'11:00 PM'}"
 az sql mi start-stop-schedule update --mi $instanceName -g $resourceGroupName --add schedule_list "$newScheduleItem"
 
 # remove an item
+
 #items in list are indexed (0 based)
 az sql mi start-stop-schedule update --mi $instanceName -g $resourceGroupName --remove schedule_list 2
 
 # delete all schedule
+
 az sql mi start-stop-schedule delete --mi "$instanceName" -g "$resourceGroupName"
+
 ```
 
 ### sqlcmd restore bak file
