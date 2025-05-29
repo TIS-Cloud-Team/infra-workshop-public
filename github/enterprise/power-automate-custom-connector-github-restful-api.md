@@ -83,19 +83,21 @@ Also, refer to the [Required IP Ranges](https://www.microsoft.com/download/confi
      - Click "Continue".
   3. **Host and Base URL**:
 
-     - Set the "Host" to `api.domain.com`.
-     - Set the "Base URL" to `/`.
+     - Set the "Host" to `api.domain.com` (ie. sub-domain.domain.com) - do not need include http:// or https://
+     - Set the "Base URL" to `/`. (i.e. /api/v1, /api, /api/v3 ...)
   4. **Authentication**:
 
-     - Choose "API Key" as the authentication type.
+     - Choose "API Key" as the authentication type. - please note:  'on-premises data gateway did NOT support it
      - Set the parameter label to "Authorization".
      - Set the parameter name to [`Authorization`](command:_github.copilot.openSymbolFromReferences?%5B%22%22%2C%5B%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2FUsers%2Fjonathan%2Fdev%2Fgithub%2Fcloud-skill-boost%2Fccsf%2Fdph-github%2Fccsf-dph-github-restful-api.sh%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A11%2C%22character%22%3A14%7D%7D%5D%2C%2283ccbf1e-5982-4349-b762-d82ef617c55b%22%5D "Go to definition").
      - Set the location to "Header".
+     - Choose 'Basic Authentication" if using 'on-premises data gateway'
   5. **Define the API**:
 
      - Go to the "Definition" tab.
      - Click on "+ New action" to define a new action.
      - Provide a summary and description for the action.
+     - Support http verbs: GET, POST ...
      - Set the operation ID (e.g., `GetIssues`).
   6. **Request**:
 
@@ -103,7 +105,6 @@ Also, refer to the [Required IP Ranges](https://www.microsoft.com/download/confi
      - Select "GET" as the method.
      - Enter the URL: `https://api.domain.com/repos/{owner}/{repo}/issues`.
      - Add the required headers:
-       - `Authorization: token {PAT}`
        - `Accept: application/vnd.github.v3+json`
      - Click "Import".
   7. **Response**:
@@ -119,3 +120,33 @@ Also, refer to the [Required IP Ranges](https://www.microsoft.com/download/confi
 - https://admin.powerplatform.microsoft.com/ext/DataGateways
 
   ![1728368267637](image/power-automate-custom-connector-github-restful-api/1728368267637.png)
+
+
+#### PAT test script
+- https://docs.github.com/enterprise-server@3.15
+- Personal access tokens (classic) function like ordinary OAuth access tokens. They can be used instead of a password for Git over HTTPS, or can be used to [authenticate to the API over Basic Authentication](https://docs.github.com/enterprise-server@3.15/v3/auth/#basic-authentication).
+- - Setting->Developer Option-> Setup access token (classic)
+- https://docs.github.com/en/enterprise-server@3.15/rest/authentication/authenticating-to-the-rest-api?apiVersion=2022-11-28#basic-authentication
+- https://make.gov.powerapps.us/
+- - ... More -> Discover All -> Data -> Custom Connectors -> Create From Blank -> "my-custom-connector-test" (upto 30 characters)
+- -  choose 'BASIC AUTHENTICATION' if using 'on-premises data gateway'
+- - reusable and flexible for various API calls uses a relative path appended to that base URL
+- - use case
+- - - Power BI: The gateway allows Power BI to connect to the on-prem GitHub database or logs for real-time dashboards on code contributions, repository activity, and security events through REST API
+- - - Power Automated: The gateway enables Power Automate to interact with on-prem GitHub Enterprise (e.g., triggering alerts when new issues are created, pull requests are merged, or security vulnerabilities are detected)
+- - - PII to on-premises SQL database that store critical data in an on-prem SQL Server.
+- - - Brainstorm other use case 
+
+```bash
+#!/bin/bash
+
+# GitHub Personal Access Token (PAT) test script
+curl -H "Authorization: token ghp_..." \
+     -H "Accept: application/vnd.github.v3+json" \
+     https://ghe-server-url/api/v3/organizations
+
+## basci authentication test
+curl -u github-username:ghp_... \
+     -H "Accept: application/vnd.github.v3+json" \
+     https://ghe-server-url/api/v3/organizations
+```
